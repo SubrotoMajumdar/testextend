@@ -1,0 +1,168 @@
+.unsubscribe_wrapper .container-fluid{
+	text-align:center;
+	padding:0;
+}
+.unsubscribe_wrapper .container-fluid p{
+	font-size:14px;
+	text-align:left;
+}
+.unsubscribe_wrapper .container-fluid .addPadding{
+	padding-left:15px;
+	padding-right:15px;
+}
+.unsubscribe_wrapper .container-fluid .headerSection{
+	height: 236px;
+    opacity: 1;
+    background-image:url(../images/section1.png);
+}
+.unsubscribe_wrapper .container-fluid .headerSection .bcg{
+	background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.unsubscribe_wrapper .container-fluid .headerSection .bcg header{
+	background-color: #1f2224;
+    height: 100px;
+}
+
+.unsubscribe_wrapper .container-fluid .headerSection .bcg header nav .navbar-header{
+	 float: none;
+     text-align: center;
+     width: 100%;
+}
+.unsubscribe_wrapper .container-fluid .headerSection .bcg header nav .navbar-header img{
+	padding: 13px;
+	max-width:none;
+}
+.unsubscribe_wrapper .container-fluid .headerSection .bcg header nav .navbar-header p{
+	font-family: Arial;
+    font-size: 11px;
+    text-transform: uppercase;
+    text-align: left;
+    color: #fff;
+    margin: 10px 0 0;
+}
+
+.unsubscribe_wrapper .container-fluid .headerSection .bcg header nav .navbar-header .removePadding{
+	padding-right:0;
+}
+
+.unsubscribe_wrapper .container-fluid .headerSection .bcg header nav .navbar-header .button_class{
+	background: #8bbb29 url("../images/key.png") no-repeat 6px 8px;
+    text-transform: uppercase;
+    color: #fff;
+    width: 10px;
+    border-radius: 0;
+    margin-right: 12px;
+    min-width: 115px !important;
+}
+
+.unsubscribe_wrapper .container-fluid .headerSection .bcg header nav .navbar-header .button_class span{
+	color: #fff;
+    display: inline-block;
+    margin: 0;
+}
+.unsubscribe_wrapper .container-fluid .headerSection .bcg header nav .navbar-header span{
+	display: inline-block;
+    color: #8bbb29;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin-top: 10px;
+}
+.unsubscribe_wrapper .container-fluid .headerSection .bcg header nav .navbar-header li{
+	 width: 15%;
+}
+.unsubscribe_wrapper .container-fluid .headerSection .bcg header nav .navbar-header .navbar-nav > li > a{
+	color: #fff;
+    line-height: 1.2;
+}
+.unsubscribe_wrapper .container-fluid .headerSection .bcg header nav .navbar-header .navbar-nav > li > a:hover,.unsubscribe_wrapper .container-fluid .headerSection .bcg header nav .navbar-header .navbar-nav > li > a:focus{
+	background-color: transparent;
+}
+.unsubscribe_wrapper .container-fluid .headerSection .bcg header nav .navbar-header .navbar-nav > li > a img{
+	padding: 0;
+}
+.unsubscribe_wrapper .container-fluid .headerSection .bcg .clearfix{
+	clear:both;
+}
+.unsubscribe_wrapper .container-fluid .headerSection .bcg .clearfix p{
+	color:#8bb1b1;
+	font-size:40px;
+}
+
+/*content section*/
+.unsubscribe_wrapper .container-fluid .contentSection{
+	clear:both;
+}
+.unsubscribe_wrapper .container-fluid .contentSection .emailDiv{
+	margin-top:50px;
+	margin-bottom:20px;
+}
+.unsubscribe_wrapper .container-fluid .contentSection p{
+	margin:10px 15px 0 15px;
+}
+
+.unsubscribe_wrapper .container-fluid .contentSection .emailDiv .form-group{
+	margin-bottom:0;
+}
+
+.unsubscribe_wrapper .container-fluid .contentSection .emailDiv .form-group label{
+	  padding: 5px 0 0 15px;
+}
+
+.unsubscribe_wrapper .container-fluid .contentSection .button_class{
+	background:#8bbb29;
+	text-transform:uppercase;
+	color:#fff;
+	min-width:15%;
+	width:40%;
+	border-radius:0;
+	float:left;
+}
+
+.unsubscribe_wrapper .container-fluid .contentSection .topLink{
+	padding: 250px 0 20px 0;
+}
+
+.unsubscribe_wrapper .container-fluid .contentSection .topLink a{
+	color:#333333;
+	text-decoration:none;
+}
+
+/*Footer section*/
+.unsubscribe_wrapper .container-fluid .footerSection{
+	background:#262a2c;
+	  padding: 20px;
+}
+.unsubscribe_wrapper .container-fluid .footerSection ul li{
+	background:url(../images/footer_nav_partition.png) right no-repeat;
+}
+.unsubscribe_wrapper .container-fluid .footerSection ul li:last-child{
+	background:none;
+}
+.unsubscribe_wrapper .container-fluid .footerSection ul li a{
+	color:#8bba28;
+	font-size:12px;
+}
+.unsubscribe_wrapper .container-fluid .footerSection .copyRight{
+	padding-right:0;
+	padding-left: 45px;
+	width:30%;
+}
+.unsubscribe_wrapper .container-fluid .footerSection .copyRight p{
+	color:#fff;
+	font-size:10px;
+	text-align:right;
+}
+.unsubscribe_wrapper .container-fluid .footerSection .copyRight p:last-child{
+	margin:0;
+}
+.unsubscribe_wrapper .container-fluid .footerSection .copyRight p:nth-child(2){
+	margin-bottom:0;
+}
+
+

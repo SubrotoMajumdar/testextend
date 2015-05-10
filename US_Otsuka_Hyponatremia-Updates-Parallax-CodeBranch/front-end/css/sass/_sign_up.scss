@@ -1,0 +1,256 @@
+.sign_up_wrapper .container-fluid {
+  text-align: center;
+  padding: 0;
+  p {
+    font-size: 14px;
+    text-align: left;
+  }  a {
+    color: #8bbb29;
+  }
+  .addPadding {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .headerSection {
+    height: 236px;
+    opacity: 1;
+    background-image: url(../images/section1.png);
+    .bcg {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      height: 100%;
+      width: 100%;
+      header {
+        background-color: #1f2224;
+        height: 100px;
+        nav .navbar-header {
+          float: none;
+          text-align: center;
+          width: 100%;
+          img {
+            padding: 13px;
+            max-width: none;
+          }
+          p {
+            font-family: Arial;
+            font-size: 11px;
+            text-transform: uppercase;
+            text-align: left;
+            color: #fff;
+            margin: 10px 0 0;
+          }
+          .button_class {
+            background: #8bbb29 url("../images/key.png") no-repeat 6px 8px;
+            text-transform: uppercase;
+            color: #fff;
+            width: 10px;
+            border-radius: 0;
+            margin-right: 12px;
+            min-width: 115px !important;
+            span {
+              color: #fff;
+              display: inline-block;
+              margin: 0;
+            }
+          }
+          span {
+            display: inline-block;
+            color: #8bbb29;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-top: 10px;
+          }
+          li {
+            width: 15%;
+          }
+          .navbar-nav > li > a {
+            color: #fff;
+            line-height: 1.2;
+            &:hover, &:focus {
+              background-color: transparent;
+            }
+            img {
+              padding: 0;
+            }
+          }
+        }
+      }
+      .clearfix {
+        clear: both;
+        p {
+          color: #8bb1b1;
+          font-size: 40px;
+        }
+      }
+    }
+  }
+  .contentSection {
+    clear: both;
+    .leftAlign {
+      text-align: left;
+      input {
+        width: 65%;
+        margin-bottom: 20px;
+      }
+      .dropdown button {
+        width: 55%;
+        margin-bottom: 20px;
+        img {
+          float: right;
+          padding-top: 6px;
+        }
+      }
+    }
+    .form-group {
+      .displayClass {
+        display: block;
+      }
+      .signUpBoth {
+        background: url(../images/sign_up_both_background.png);
+        width: 284px;
+        height: 55px;
+        padding: 10px;
+        text-align: center;
+        color: #fff;
+        margin-top: 0;
+        display: inline-block;
+        float: left;
+        img {
+          padding-right: 10px;
+        }
+      }
+      span {
+        border: 3px solid #dddddd;
+        padding: 5px 10px;
+        display: inline-block;
+        float: left;
+        &.adjustPadding {
+          padding: 7px 10px;
+          border-left: none;
+        }
+      }
+    }
+    .step2 {
+      label {
+        font-weight: normal;
+        display: block;
+      }
+      input {
+        border: none;
+        width: 45%;
+        display: inline-block;
+      }
+      h2 {
+        display: inline-block;
+        /*float:left;*/
+      }
+      span {
+        border: none;
+        margin: 15px 0;
+        float: none;
+      }
+      .radio {
+        margin-bottom: 0;
+        label {
+          &#licenseLabel, &#npiLabel {
+            padding: 20px;
+          }
+        }
+        input {
+          padding-left: 20px;
+          margin-bottom: 10px;
+          &#license, &#npi {
+            top: 10px;
+            width: 3%;
+          }
+        }
+        button {
+          margin-left: 20px;
+          width: 22%;
+          border: none;
+        }
+      }
+    }
+    .step3 .form-group {
+      label {
+        font-size: 16px;
+        padding-right: 10px;
+      }
+      .dropdown {
+        float: left;
+        width: 30%;
+      }
+      input {
+        border: none;
+      }
+      button {
+        width: 70%;
+        border: none;
+        display: block;
+      }
+    }
+    p {
+      &.title {
+        color: #8bb1b1;
+        font-size: 30px;
+        margin: 10px 15px 0 15px;
+        padding: 0;
+        border-bottom: 1px solid #8bb1b1;
+      }
+      &.adjustFont {
+        font-size: 25px;
+        border-bottom: none;
+      }
+      &.alignText {
+        text-align: right;
+      }
+    }
+    .topLink {
+      padding: 70px 0 20px 0;
+      a {
+        color: #333333;
+        text-decoration: none;
+      }
+    }
+  }
+  .footerSection {
+    background: #262a2c;
+    padding: 20px;
+    ul li {
+      background: url(../images/footer_nav_partition.png) right no-repeat;
+      &:last-child {
+        background: none;
+      }
+      a {
+        color: #8bba28;
+        font-size: 12px;
+      }
+    }
+    .copyRight {
+      padding-right: 0;
+      padding-left: 45px;
+      width: 30%;
+      p {
+        color: #fff;
+        font-size: 10px;
+        text-align: right;
+        &:last-child {
+          margin: 0;
+        }
+        &:nth-child(2) {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+/*.sign_up_wrapper .container-fluid .headerSection .bcg header nav .navbar-header .removePadding{
+	padding-right:0;
+}*/
+
+/*content section*/
+
+/*footer section*/

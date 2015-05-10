@@ -1,0 +1,453 @@
+﻿@* Remove this section if you are using bundling *@
+@section Scripts {
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}
+<link href="~/Content/HyponatremiaCSS/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/HyponatremiaCSS/normalize.css" rel="stylesheet" />
+<link href="~/Content/HyponatremiaCSS/style.css" rel="stylesheet" />
+<script src="~/Scripts/HyponatremiaJS/jquery-2.1.3.js"></script>
+
+@{
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Register";
+
+    // Initialize general page variables
+    var email = "";
+    var password = "";
+    var confirmPassword = "";
+
+    var fname = "";
+    var lname = "";
+    var professionalDesignation = "";
+    var specialty = "";
+    var otherSpecialty = "";
+    var emailUpdates = "";
+    var exclusiveContent = "";
+
+    bool BothContentMail = false;
+    var hcpVerificationMethod = "";
+    var stateLicenseNumber = "";
+    var stateOfLicensure = "";
+    var npiNumber = "";
+
+    var businessAddressLine1 = "";
+    var businessAddressLine2 = "";
+    var businessAddressCity = "";
+    var businessAddressState = "";
+    var businessAddressZip = "";
+
+    var treatmentQuestionResponse = "";
+
+    var IgnoredFormFields = "";
+
+    //TODO: options should be provided by the database
+    var professionalDesignationOptions = new String[] { "MD", "DO", "PA", "NP", "RN", "Pharmacist" };
+    var specialtyOptions = new String[] { "Cardiologist", "Nephrologist", "Hospitalist/Intensivist", "Emergency medicine", "Endocrinologist", "Oncologist", "Other" };
+    var hcpVerificationMethodOptions = new String[] { "State License Number", "NPI Number" };
+    var treatmentQuestionResponseOptions = new String[] { "135 mEq/L", "132 mEq/L", "128 mEq/L", "125 mEql/L or lower" };
+
+    // Setup validation
+    Validation.RequireField("email", "You must specify an email address.");
+    Validation.RequireField("password", "Password cannot be blank.");
+    Validation.Add("confirmPassword",
+        Validator.EqualsTo("password", "Password and confirmation password do not match."));
+    Validation.Add("password",
+        Validator.StringLength(
+            maxLength: Int32.MaxValue,
+            minLength: 6,
+            errorMessage: "Password must be at least 6 characters"));
+    Validation.RequireField("fname", "First name cannot be blank.");
+    Validation.RequireField("lname", "Last name cannot be blank.");
+    Validation.RequireField("professionalDesignation", "Professional designation cannot be blank.");
+    Validation.RequireField("specialty", "Speciality cannot be blank.");
+    Validation.RequireField("businessAddressLine1", "Address cannot be blank.");
+    Validation.RequireField("businessAddressState", "State cannot be blank.");
+    Validation.RequireField("businessAddressZip", "Zip code cannot be blank.");
+    Validation.RequireField("stateOfLicensure", "State of licensure cannot be blank.");
+    Validation.RequireField("businessAddressCity", "City cannot be blank.");
+
+    // If this is a POST request, validate and process data
+    if (IsPost)
+    {
+        AntiForgery.Validate();
+
+        ModelState.Remove("email");
+        ModelState.Remove("password");
+        
+        email = Request.Form["email"];
+        password = Request.Form["password"];
+        confirmPassword = Request.Form["confirmPassword"];
+
+        fname = Request.Form["fname"];
+        lname = Request.Form["lname"];
+        professionalDesignation = Request.Form["professionalDesignation"];
+        specialty = Request.Form["specialty"];
+        otherSpecialty = Request.Form["OtherSpeciality"];
+
+        if (Request.Form["SignUpOptions"] == "1")
+        {
+            BothContentMail = true;
+        }
+        if (Request.Form["SignUpOptions"] == "2")
+        {
+            exclusiveContent = "exclusiveContent";
+        }
+        if (Request.Form["SignUpOptions"] == "3")
+        {
+            emailUpdates = "emailUpdates";
+        }
+
+        hcpVerificationMethod = Request.Form["HCPOptions"];
+        stateLicenseNumber = Request.Form["stateLicenseNumber"];
+        stateOfLicensure = Request.Form["stateOfLicensure"];
+        npiNumber = Request.Form["npiNumber"];
+
+        businessAddressLine1 = Request.Form["businessAddressLine1"];
+        businessAddressLine2 = Request.Form["businessAddressLine2"];
+        businessAddressCity = Request.Form["businessAddressCity"];
+        businessAddressState = Request.Form["businessAddressState"];
+        businessAddressZip = Request.Form["businessAddressZip"];
+
+        treatmentQuestionResponse = Request.Form["TreatmentQuestion"];
+
+
+        // Validate the user's captcha answer
+        // if (!ReCaptcha.Validate("PRIVATE_KEY")) {
+        //     ModelState.AddError("recaptcha", "Captcha response was not correct");
+        // }
+
+        // If all information is valid, create a new account
+
+        if (Validation.IsValid())
+        {
+            // Insert a new user into the database
+            //var db = Database.Open("hyponatremiaupdatesContainer"); //if you need to use this connection style, use the "hyponatremiaupdatesMembership" connection string
+            //it's easier to use the generated DB context than to write SQL queries
+            var dbContext = new hyponatremiaupdatesContainer();
+
+            // Check if user already exists
+            //var user = db.QuerySingle("SELECT Email FROM UserProfiles WHERE LOWER(Email) = LOWER(@0)", email);
+            var user = dbContext.UserProfiles.FirstOrDefault(p => p.Email == email);
+            if (user == null)
+            {
+                // Insert email into the profile table
+                //db.Execute("INSERT INTO UserProfiles (Email) VALUES (@0)", email);
+                UserProfile newUser = dbContext.UserProfiles.Create();
+                newUser.Email = email;
+
+                newUser.FName = fname;
+                newUser.LName = lname;
+
+                newUser.ProfessionalDesignation = professionalDesignation;
+                newUser.Specialty = specialty;
+
+                newUser.OtherSpecialty = otherSpecialty;
+                newUser.EmailUpdates = !String.IsNullOrWhiteSpace(emailUpdates);
+                newUser.ExclusiveContent = !String.IsNullOrWhiteSpace(exclusiveContent);
+                newUser.HCPVerificationMethod = hcpVerificationMethod;
+                newUser.StateLicenseNumber = stateLicenseNumber;
+                newUser.StateOfLicensure = stateOfLicensure;
+                newUser.NPINumber = npiNumber;
+                newUser.BusinessAddressLine1 = businessAddressLine1;
+                newUser.BusinessAddressLine2 = businessAddressLine2;
+                newUser.BusinessAddressCity = businessAddressCity;
+                newUser.BusinessAddressState = businessAddressState;
+                newUser.BusinessAddressZip = businessAddressZip;
+                newUser.TreatmentQuestionResponse = treatmentQuestionResponse;
+
+
+                dbContext.UserProfiles.Add(newUser);
+                dbContext.SaveChanges();
+
+                // Create and associate a new entry in the membership database.
+                // If successful, continue processing the request
+                try
+                {
+                    bool requireEmailConfirmation = !WebMail.SmtpServer.IsEmpty();
+                    var token = WebSecurity.CreateAccount(email, password, requireEmailConfirmation);
+                    if (requireEmailConfirmation)
+                    {
+                        var hostUrl = Request.Url.GetComponents(UriComponents.SchemeAndServer, UriFormat.Unescaped);
+                        var confirmationUrl = hostUrl + VirtualPathUtility.ToAbsolute("~/Account/Confirm?confirmationCode=" + HttpUtility.UrlEncode(token));
+
+                        WebMail.Send(
+                            to: email,
+                            subject: "Please confirm your account",
+                            body: "Your confirmation code is: " + token + ". Visit <a href=\"" + confirmationUrl + "\">" + confirmationUrl + "</a> to activate your account."
+                        );
+                    }
+
+                    if (requireEmailConfirmation)
+                    {
+                        // Thank the user for registering and let them know an email is on its way
+                        Response.Redirect("~/Account/Thanks");
+                    }
+                    else
+                    {
+                        // Navigate back to the homepage and exit
+                        WebSecurity.Login(email, password);
+
+                        Response.Redirect("~/");
+                    }
+                }
+                catch (System.Web.Security.MembershipCreateUserException e)
+                {
+                    ModelState.AddFormError(e.Message);
+                }
+            }
+            else
+            {
+                // User already exists
+                ModelState.AddFormError("Email address is already in use.");
+            }
+        }
+    }
+}
+<hgroup class="title">
+    <h1>@Page.Title.</h1>
+    <h2>Create a new account.</h2>
+</hgroup>
+
+<input type="hidden" id="BothContentMailClick">
+<input type="hidden" id="ExclusiveContentClick">
+<input type="hidden" id="EmailUpdatesClick">
+
+<div id="summary"></div>
+
+<form id="SignUp" method="post">
+    @AntiForgery.GetHtml()
+    @* If at least one validation error exists, notify the user *@
+    @Html.ValidationSummary("Account creation was unsuccessful. Please correct the errors and try again.", excludeFieldErrors: true, htmlAttributes: null)
+    <div class="row">
+        <div class="col-xs-12 col-md-3">
+            <p class="title adjustFont alignText">
+                About You
+            </p>
+        </div>
+        <div class="col-xs-12 col-md-9">
+            <div class="row">
+                <div class="col-xs-12 leftAlign">
+                    <h2><strong>Step 1</strong></h2>
+                    <div class="step1">
+                        <label for="fname" @if (!ModelState.IsValidField("fname")) { <text> class="error-label" </text>                                                    }>Please enter your first name</label>
+                        <input class="form-control" type="text" id="firstName" name="fname" placeholder="Please enter your first name" @Validation.For("fname") required />
+                        <div id="validfname">@Html.ValidationMessage("fname")</div>
+                        <label for="lname" @if (!ModelState.IsValidField("lname")) { <text> class="error-label" </text>                                                     }>Please enter your last name</label>
+                        <input class="form-control" type="text" id="lastName" name="lname" placeholder="Please enter your last name" @Validation.For("lname") required />
+                        <div id="validlname">@Html.ValidationMessage("lname")</div>
+                        <label for="professionalDesignation" @if (!ModelState.IsValidField("professionaldesignation")) { <text> class="error-label" </text>                                                     }>Professional Designation</label>
+                        <div class="dropdown">
+                            @*<button class="btn btn-default dropdown-toggle leftAlign" type="button" id="menu1" data-toggle="dropdown">
+                                    - Select One -
+                                    <img src="~/Images/HyponatremiaImages/scroll_down_without_background.png" />
+                                </button>*@
+                            <select id="professionalDesignation" name="professionalDesignation" onchange="OnDesignationChange(this)"></select>
+                            <!--<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">HTML</a></li>
+                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">CSS</a></li>
+                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">JavaScript</a></li>
+                                 <li role="presentation" class="divider"></li>
+                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
+                            </ul>-->
+                            <div id="validprofessionalDesignation">@Html.ValidationMessage("professionalDesignation")</div>
+                            <input type="hidden" id="hiddendesignation" name="hiddendesignation" />
+                        </div>
+                        <div id="divspecialty" class="dropdown">
+                            <label for="specialty" @if (!ModelState.IsValidField("specialty")) { <text> class="error-label" </text>                                               }>Specialty</label>
+
+                            @*<button class="btn btn-default dropdown-toggle leftAlign" type="button" id="menu1" data-toggle="dropdown">
+                                    - Select One -
+                                    <img src="~/Images/HyponatremiaImages/scroll_down_without_background.png" />
+                                </button>*@
+                            <select id="specialty" name="specialty" onchange="OnSpecialityChange(this)"></select>
+                            <div id="validspecialty">@Html.ValidationMessage("specialty")</div>
+                        </div>
+                        <div id="divOtherSpeciality">
+                            <label for="OtherSpeciality" @if (!ModelState.IsValidField("otherspeciality")) { <text> class="error-label" </text>                                                 }>Other Specialty</label>
+
+                            <input class="form-control" type="text" id="OtherSpeciality" name="OtherSpeciality" @Validation.For("otherspeciality") required />
+                            <div id="validOtherSpeciality">@Html.ValidationMessage("OtherSpeciality")</div>
+                        </div>
+                        <label class="displayClass">I would like to sign up for</label>
+                        <p class="signUpBoth" style="cursor:pointer" onclick="BothContentMailClick()">
+                            <img src="~/Images/HyponatremiaImages/email_icon_white.png" />
+                            <img src="~/Images/HyponatremiaImages/exclusive_content_white.png" />
+                            Both Content and Emails
+                        </p>
+                        <span style="cursor:pointer" onclick="ExclusiveContentClick()">
+                            <img src="~/Images/HyponatremiaImages/exclusive_content_green.png" />
+                            Exclusive Content
+                        </span>
+                        <span class="adjustPadding" style="cursor:pointer" onclick="EmailUpdatesClick()">
+                            <img src="~/Images/HyponatremiaImages/email_icon_green.png" />
+                            Email Updates
+                        </span>
+                        <input type="hidden" id="SignUpOptions" name="SignUpOptions">
+                        @*<div id="SignUpOptionErrorMessage" class="error"></div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divstep2" class="row">
+        <div class="col-xs-12 col-md-3">
+            <p class="title adjustFont alignText">
+                Account Information
+            </p>
+        </div>
+        <div class="col-xs-12 col-md-9">
+            <div class="row">
+                <div class="col-xs-12 leftAlign">
+                    <h2><strong>Step 2</strong></h2>
+                    <p>
+                        Please create an account in order to access the content.  We will use the same email address to send you updates.
+                    </p>
+                    <div class="step2">
+                        <label for="email" @if (!ModelState.IsValidField("email")) { <text> class="error-label" </text>                                                   }>Email Address (Will be used as your user name)</label>
+                        <input class="form-control" type="email" id="email" name="email" placeholder="EX: name@domain.com" @Validation.For("email") required />
+                        <!--<input class="form-control" type="text" id="validEmail" placeholder="check" readonly><img src="~/Images/HyponatremiaImages/validation_success.png" /></input>-->
+                        <div id="validEmail">@Html.ValidationMessage("email")</div>
+                        <div id="divPassword">
+                            <label for="Password" @if (!ModelState.IsValidField("password")) { <text> class="error-label" </text>                                                 }>Password</label>
+                            <label><img src="~/Images/HyponatremiaImages/password_icon.png" /></label>
+                            <input class="form-control" type="password" id="Password" name="Password" @Validation.For("password") required />
+                            <div id="validPassword">@Html.ValidationMessage("Password")</div>
+                        </div>
+                        <div id="divConfirmPassword">
+                            <label for="ConfirmPassword" @if (!ModelState.IsValidField("confirmpassword")) { <text> class="error-label" </text>                                                  }>ConfirmPassword</label>
+                            <label><img src="~/Images/HyponatremiaImages/password_icon.png" /></label>
+                            <input class="form-control" type="password" id="ConfirmPassword" name="ConfirmPassword" @Validation.For("confirmpassword") required />
+                            <div id="validConfirmPassword">@Html.ValidationMessage("ConfirmPassword")</div>
+                        </div>
+                    </div>
+                    <div id="divHCPVerification">
+                        <h2>
+                            HCP Verification Method
+                        </h2>
+                        <span>
+                            <a href="#">Why are we asking for this?</a>
+                        </span>
+                        <p>
+                            We ask for your NPI or state license number to verify against duplicate registrations. This information will be kept confidential and is used only to confirm that the entered NPI or state license number matches the number on record.
+                        </p>
+                        <div class="radio">
+                            <label id="licenseLabel"><input class="form-control" type="radio" name="license" id="license" checked />State License Number</label>
+                            <div id="divStateLicensure">
+                                <div class="dropdown">
+                                    @*<button class="btn btn-default dropdown-toggle leftAlign" type="button" id="menu1" data-toggle="dropdown">
+                                            - Select One -
+                                            <img src="~/Images/HyponatremiaImages/scroll_down_without_background.png" />
+                                        </button>*@
+                                    <label for="stateOfLicensure" @if (!ModelState.IsValidField("stateoflicensure")) { <text> class="error-label" </text>                                                    }>State of Licensure</label>
+                                    <select id="stateOfLicensure" name="stateOfLicensure" @Validation.For("stateoflicensure")>
+                                        <option>- Select One -</option>
+                                    </select>
+                                    <div id="validstateOfLicensure">@Html.ValidationMessage("stateOfLicensure")</div>
+                                    <label for="statelicensenumber" @if (!ModelState.IsValidField("statelicensenumber")) { <text> class="error-label" </text>                                                      }>State License Number</label>
+                                    <input id="licenseText" name="statelicensenumber" class="form-control" type="text" placeholder="EX:12345-67" @Validation.For("statelicensenumber") required />
+                                    <div id="validstatelicensenumber">@Html.ValidationMessage("statelicensenumber")</div>
+                                </div>
+                            </div>
+                            <input type="hidden" id="HCPOptions" name="HCPOptions">
+                        </div>
+                        <div class="radio">
+                            <label for="NPInumber" @if (!ModelState.IsValidField("npinumber")) { <text> class="error-label" </text>                                                        } id="npiLabel"><input class="form-control" type="radio" name="license" id="npi" />NPI Number</label>
+                        </div>
+                        <div id="divNPI">
+                            <input id="NPInumber" name="NPInumber" class="form-control" type="text" @Validation.For("npinumber") required />
+                            <div id="validNPInumber">@Html.ValidationMessage("NPInumber")</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divStep3" class="row">
+        <div class="col-xs-12 col-md-3">
+            <p class="title adjustFont alignText">
+                Primary Business Address
+            </p>
+        </div>
+        <div class="col-xs-12 col-md-9">
+            <div class="row">
+                <div class="col-xs-12 leftAlign">
+                    <h2><strong>Step 3</strong></h2>
+                    <div class="step3">
+                        <label for="businessAddressLine1" @if (!ModelState.IsValidField("businessaddressline1")) { <text> class="error-label" </text>                                                     }>Street Address</label> <a href="#">Why are we asking for this?</a>
+                        <input class="form-control" type="text" id="businessAddressLine1" name="businessAddressLine1" @Validation.For("businessaddressline1") required />
+                        <div id="validbusinessAddressLine1">@Html.ValidationMessage("businessAddressLine1")</div>
+                        <input class="form-control" type="text" id="businessAddressLine2" name="businessAddressLine2" />
+                        <label for="businessAddressCity" @if (!ModelState.IsValidField("businessaddresscity")) { <text> class="error-label" </text>                                                      }>City</label>
+                        <input class="form-control" type="text" id="businessAddressCity" name="businessAddressCity" @Validation.For("businessaddresscity") required />
+                        <div id="validbusinessAddressCity">@Html.ValidationMessage("businessAddressCity")</div>
+                        <div class="dropdown">
+                            <label for="businessAddressState" @if (!ModelState.IsValidField("businessaddressstate")) { <text> class="error-label" </text>                                              }>State</label>
+                            @*<button class="btn btn-default dropdown-toggle leftAlign" type="button" id="menu1" data-toggle="dropdown">
+                                    - Select One -
+                                    <img src="~/Images/HyponatremiaImages/scroll_down_without_background.png" />
+                                </button>*@
+                            <select id="businessAddressState" name="businessAddressState" @Validation.For("businessaddressstate")>
+                                <option>- Select One -</option>
+                            </select>
+                            <div id="validbusinessAddressState">@Html.ValidationMessage("businessAddressState")</div>
+                        </div>
+                        <div class="zipcode">
+                            <label for="businessAddressZip" @if (!ModelState.IsValidField("businessaddresszip")) { <text> class="error-label" </text>                                               }>Zip Code</label>
+                            <input class="form-control" type="text" placeholder="12345" id="businessAddressZip" name="businessAddressZip" @Validation.For("businessaddresszip") required />
+                            <div id="validbusinessAddressZip">@Html.ValidationMessage("businessAddressZip")</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divSegmentationQuestion" class="row addMarginBottom">
+        <div class="col-xs-12 col-md-3">
+            <p class="title adjustFont alignText">
+                Treatment Question
+            </p>
+        </div>
+        <div class="col-xs-12 col-md-9">
+            <div class="row">
+                <div class="col-xs-12 leftAlign">
+                    <h2><strong>Step 4</strong></h2>
+                    <div class="step4">
+                        <p>
+                            At what level of serum [Na+] (mEq/L) would you consider intervening clinically?  (Optional)
+                        </p>
+                        <div class="radio">
+                            <label class="step4Label"><input class="form-control" type="radio" name="levelOfSerum" id="levelOfSerum135" checked />135 mEq/L</label>
+                        </div>
+                        <div class="radio">
+                            <label class="step4Label"><input class="form-control" type="radio" name="levelOfSerum" id="levelOfSerum132" />132 mEq/L</label>
+                        </div>
+                        <div class="radio">
+                            <label class="step4Label"><input class="form-control" type="radio" name="levelOfSerum" id="levelOfSerum128" />128 mEq/L</label>
+                        </div>
+                        <div class="radio">
+                            <label class="step4Label"><input class="form-control" type="radio" name="levelOfSerum" id="levelOfSerum125" />125 mEq/L or lower</label>
+                        </div>
+                        <p>
+                            By providing your name, email address, and other information, you are giving Otsuka America Pharmaceutical, Inc. (OAPI) and companies working with OAPI permission to send you information from Hyponatremia Updates. OAPI will not sell or transfer your name, address, or email address. For additional information, please read our Privacy Policy. By submitting your information, you agree to the terms provided above, and the terms provided in our Terms of Use, our Legal Disclaimer, and our Privacy Policy.
+                        </p>
+                        <input type="hidden" id="TreatmentQuestion" name="TreatmentQuestion">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<button class="btn button_class " onclick="ValidateForm(event);">
+            Register
+        </button>*@
+    <input type="submit" class="btn button_class" value="Register" onclick="ValidateForm();" />
+    <input id="IgnoredFormFields" name="IgnoredFormFields" type="hidden" />
+</form>
+<script type="text/javascript">
+
+
+</script>
+<script src="~/Scripts/HyponatremiaJS/Registration.js"></script>
+<script src="~/Scripts/HyponatremiaJS/bootstrap.min.js"></script>
+<script src="~/Scripts/HyponatremiaJS/jquery-2.1.3.js"></script>

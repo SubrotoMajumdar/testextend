@@ -1,0 +1,12 @@
+﻿body {
+}
+
+.hnu-register {}
+
+.hnu-register .initially-hidden {
+    display:none;
+}
+
+.hnu-register .signupOption-check {
+    display:none;
+}

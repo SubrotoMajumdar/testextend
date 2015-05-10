@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="hyponatremiaupdates.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="hyponatremiaupdatesStoreContainer">
+    <EntitySet Name="UserProfiles" EntityType="hyponatremiaupdates.Store.UserProfiles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Resources" EntityType="hyponatremiaupdates.Store.Resources" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="UserProfiles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="LName" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="ProfessionalDesignation" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Specialty" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="OtherSpecialty" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="EmailUpdates" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="ExclusiveContent" Type="bit" Nullable="true" DefaultValue="false" />
+    <Property Name="HCPVerificationMethod" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="StateLicenseNumber" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="StateOfLicensure" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="NPINumber" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="BusinessAddressLine1" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="BusinessAddressLine2" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="BusinessAddressCity" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="BusinessAddressState" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="BusinessAddressZip" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="TreatmentQuestionResponse" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Resources">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Content" Type="varbinary(max)" Nullable="false" />
+  </EntityType>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="hyponatremiaupdates" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="hyponatremiaupdatesContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UserProfiles" EntityType="hyponatremiaupdates.UserProfile" />
+          <EntitySet Name="Resources" EntityType="hyponatremiaupdates.Resource" />
+        </EntityContainer>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="FName" Type="String" Nullable="true" />
+          <Property Name="LName" Type="String" Nullable="true" />
+          <Property Name="ProfessionalDesignation" Type="String" Nullable="true" />
+          <Property Name="Specialty" Type="String" Nullable="true" />
+          <Property Name="OtherSpecialty" Type="String" Nullable="true" />
+          <Property Name="EmailUpdates" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="ExclusiveContent" Type="Boolean" Nullable="true" DefaultValue="False" />
+          <Property Name="HCPVerificationMethod" Type="String" Nullable="true" />
+          <Property Name="StateLicenseNumber" Type="String" Nullable="true" />
+          <Property Name="StateOfLicensure" Type="String" Nullable="true" />
+          <Property Name="NPINumber" Type="String" Nullable="true" />
+          <Property Name="BusinessAddressLine1" Type="String" Nullable="true" />
+          <Property Name="BusinessAddressLine2" Type="String" Nullable="true" />
+          <Property Name="BusinessAddressCity" Type="String" Nullable="true" />
+          <Property Name="BusinessAddressState" Type="String" Nullable="true" />
+          <Property Name="BusinessAddressZip" Type="String" Nullable="true" />
+          <Property Name="TreatmentQuestionResponse" Type="String" Nullable="true" />
+        </EntityType>
+        <EntityType Name="Resource">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="FileName" Type="String" Nullable="false" />
+          <Property Name="Content" Type="Binary" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="hyponatremiaupdatesStoreContainer" CdmEntityContainer="hyponatremiaupdatesContainer">
+    <EntitySetMapping Name="UserProfiles">
+      <EntityTypeMapping TypeName="IsTypeOf(hyponatremiaupdates.UserProfile)">
+        <MappingFragment StoreEntitySet="UserProfiles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="FName" ColumnName="FName" />
+          <ScalarProperty Name="LName" ColumnName="LName" />
+          <ScalarProperty Name="ProfessionalDesignation" ColumnName="ProfessionalDesignation" />
+          <ScalarProperty Name="Specialty" ColumnName="Specialty" />
+          <ScalarProperty Name="OtherSpecialty" ColumnName="OtherSpecialty" />
+          <ScalarProperty Name="EmailUpdates" ColumnName="EmailUpdates" />
+          <ScalarProperty Name="ExclusiveContent" ColumnName="ExclusiveContent" />
+          <ScalarProperty Name="HCPVerificationMethod" ColumnName="HCPVerificationMethod" />
+          <ScalarProperty Name="StateLicenseNumber" ColumnName="StateLicenseNumber" />
+          <ScalarProperty Name="StateOfLicensure" ColumnName="StateOfLicensure" />
+          <ScalarProperty Name="NPINumber" ColumnName="NPINumber" />
+          <ScalarProperty Name="BusinessAddressLine1" ColumnName="BusinessAddressLine1" />
+          <ScalarProperty Name="BusinessAddressLine2" ColumnName="BusinessAddressLine2" />
+          <ScalarProperty Name="BusinessAddressCity" ColumnName="BusinessAddressCity" />
+          <ScalarProperty Name="BusinessAddressState" ColumnName="BusinessAddressState" />
+          <ScalarProperty Name="BusinessAddressZip" ColumnName="BusinessAddressZip" />
+          <ScalarProperty Name="TreatmentQuestionResponse" ColumnName="TreatmentQuestionResponse" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Resources">
+      <EntityTypeMapping TypeName="IsTypeOf(hyponatremiaupdates.Resource)">
+        <MappingFragment StoreEntitySet="Resources">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

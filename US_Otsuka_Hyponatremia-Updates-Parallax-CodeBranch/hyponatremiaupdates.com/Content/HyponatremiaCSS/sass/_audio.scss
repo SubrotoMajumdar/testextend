@@ -1,0 +1,212 @@
+.audio_wrapper .container-fluid {
+  text-align: center;
+  padding: 0;
+  p {
+    font-size: 14px;
+    text-align: left;
+  }
+  .addPadding {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .headerSection {
+    height: 236px;
+    opacity: 1;
+    background-image: url(../images/section1.png);
+    .bcg {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+      height: 100%;
+      width: 100%;
+      header {
+        background-color: #1f2224;
+        height: 100px;
+        nav .navbar-header {
+          float: none;
+          text-align: center;
+          width: 100%;
+          img {
+            padding: 13px;
+            max-width: none;
+          }
+          p {
+            font-family: Arial;
+            font-size: 11px;
+            text-transform: uppercase;
+            text-align: left;
+            color: #fff;
+            margin: 10px 0 0;
+          }
+          .removePadding {
+            padding-right: 0;
+          }
+          .button_class {
+            background: #8bbb29 url("../images/key.png") no-repeat 6px 8px;
+            text-transform: uppercase;
+            color: #fff;
+            width: 10px;
+            border-radius: 0;
+            margin-right: 12px;
+            min-width: 115px !important;
+            span {
+              color: #fff;
+              display: inline-block;
+              margin: 0;
+            }
+          }
+          span {
+            display: inline-block;
+            color: #8bbb29;
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-top: 10px;
+          }
+          li {
+            width: 15%;
+          }
+          .navbar-nav > li > a {
+            color: #fff;
+            line-height: 1.2;
+            &:hover, &:focus {
+              background-color: transparent;
+            }
+            img {
+              padding: 0;
+            }
+          }
+        }
+      }
+      .clearfix {
+        clear: both;
+        p {
+          color: #8bb1b1;
+          font-size: 40px;
+        }
+      }
+    }
+  }
+  .contentSection {
+    clear: both;
+    p {
+      &.title {
+        color: #8bb1b1;
+        font-size: 35px;
+        margin: 10px 15px 0 0;
+        padding: 0;
+        border-bottom: 1px solid #8bb1b1;
+      }
+      &.adjustFont {
+        font-size: 30px;
+        border-bottom: none;
+      }
+      a {
+        color: #8bb927;
+      }
+      &.alignText {
+        text-align: right;
+      }
+      &.audioClipReferences {
+        color: #666666;
+        font-size: 24px;
+        border-bottom: 1px solid #cdcdcd;
+      }
+    }
+    div img.fpo {
+      width: 100%;
+    }
+    .fpoContainer {
+      margin-bottom: 30px;
+    }
+    p.adjustText {
+      text-align: right;
+      font-size: 12px;
+    }
+    .button_class {
+      background: #8bbb29;
+      text-transform: uppercase;
+      color: #fff;
+      min-width: 15%;
+      width: 13%;
+      border-radius: 0;
+    }
+    .adjustButton {
+      min-width: 10%;
+      width: 10px;
+      margin-left: 10px;
+      margin-right: 20px;
+    }
+    .button_class img {
+      padding-right: 12px;
+    }
+    p .shareImage {
+      padding-right: 15px;
+    }
+    .lastSection {
+      background: #d5e2e8;
+      padding: 20px;
+      line-height: 1.8;
+      margin-top: 30px;
+      .contentDiv {
+        padding-left: 0;
+        p:first-child {
+          margin-top: 0;
+        }
+      }
+    }
+    ul {
+      text-align: left;
+    }
+    .topLink {
+      padding: 70px 0 20px 0;
+      a {
+        color: #333333;
+        text-decoration: none;
+      }
+    }
+  }
+  .footerSection {
+    background: #262a2c;
+    padding: 20px;
+    ul li {
+      background: url(../images/footer_nav_partition.png) right no-repeat;
+      &:last-child {
+        background: none;
+      }
+      a {
+        color: #8bba28;
+        font-size: 12px;
+      }
+    }
+    .copyRight {
+      padding-right: 0;
+      padding-left: 45px;
+      width: 30%;
+      p {
+        color: #fff;
+        font-size: 10px;
+        text-align: right;
+        &:last-child {
+          margin: 0;
+        }
+        &:nth-child(2) {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+
+/*content section*/
+
+/*.audio_wrapper .container-fluid .contentSection p.reduceMargin{
+	 font-size:16px;
+	 text-align:left;
+	 margin:8px 0;
+}
+.audio_wrapper .container-fluid .contentSection p.alignText{
+	text-align:center;
+}*/
+
+/*footer section*/
